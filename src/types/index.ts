@@ -7,6 +7,7 @@ export interface Article {
   id: string;
   title: string;
   content: string;
+  snippet?: string;
   category: string;
   tags: string[];
   relevanceScore: number;
@@ -49,7 +50,9 @@ export interface SearchSuggestion {
 export interface Category {
   id: string;
   name: string;
-  count: number;
+  count?: number;
+  articleCount?: number;
+  description?: string;
 }
 
 // API error response

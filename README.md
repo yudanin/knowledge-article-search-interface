@@ -7,15 +7,12 @@ A React-based AI-powered knowledge search interface for customer service agents.
 - **Search bar with real-time suggestions** - debounced search input with autocomplete
 - **Search Results Display** - article title, relevance score, preview snippet, category tags
 - **Filtering** by category and date range
-- **Sort options** (by )relevance, date, popularity)
+- **Sort options** (by relevance, date, popularity)
 - **Article detail view** (side panel modal with full article content)
 - **Search history** - last 5 searches
 - **Loading states** - skeleton loaders and spinners
 - **Error handling** - user-friendly error messages with retry
 - **Responsive design** (mobile-friendly)
-
-
-
 
 ## Project Structure
 
@@ -65,12 +62,48 @@ The app uses a pluggable API service pattern. To switch from mock to real API:
    export const apiService: IApiService = new RealApiService();
    ```
 
-## Technology Stack
+## Tech Stack
 
 - **React 19** with TypeScript
 - **TanStack Query** for server state management
 - **CSS Modules** for component styling
 - **date-fns** for date formatting
+
+## Backend API
+
+The project includes an Express.js backend implementing the OpenAPI specification.
+
+### Running the Backend
+```bash
+# Terminal 1 - Start backend
+cd backend
+npm install
+npm start
+# Runs on http://localhost:3001
+
+# Terminal 2 - Start frontend
+npm start
+# Runs on http://localhost:3000
+```
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/search` | POST | Search articles |
+| `/api/v1/search/suggestions` | GET | Autocomplete |
+| `/api/v1/articles` | GET | List articles |
+| `/api/v1/articles/:id` | GET | Get article |
+| `/api/v1/articles` | POST | Create article |
+| `/api/v1/articles/:id` | PUT | Update article |
+| `/api/v1/articles/:id` | DELETE | Delete article |
+| `/api/v1/analytics/events` | POST | Track events |
+| `/api/v1/categories` | GET | List categories |
+
+### API Documentation
+
+OpenAPI spec: `knowledge-api-openapi.yaml`
+
 
 ### Prerequisites
 
@@ -99,6 +132,29 @@ npm start
 2. Configure Node.js interpreter
 3. Run `npm start` from terminal
 4. App runs at http://localhost:3000
+
+## Testing API
+
+**Prerequisite:** Backend must be running (Terminal 1: `cd backend` and then `npm start`)
+
+1. Open new Terminal window
+2. Go to the /public folder where knowledge-api-openapi.yaml resides
+```bash
+cd public
+```
+3. Run prism (install components if asked)
+```bash
+npx @stoplight/prism-cli proxy knowledge-api-openapi.yaml http://localhost:3001 --port 4010
+```
+
+4. Run curl to test API points. 
+For example, to search for articles with 'escalate':
+```bash
+curl -X POST http://127.0.0.1:4010/api/v1/search \
+  -H "Content-Type: application/json" \
+  -d '{"query": "escalate"}'
+```
+
 
 ## Author
 

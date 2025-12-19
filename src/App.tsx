@@ -14,6 +14,7 @@ import {
   ErrorMessage,
   EmptyState,
 } from './components';
+import { apiService } from './services';
 import { useSearchParams, useSearch } from './hooks';
 import { Article } from './types';
 import './styles/globals.css';
@@ -55,10 +56,22 @@ const AppContent: React.FC = () => {
   }, [updateQuery]);
 
   // Handle article click
-  const handleArticleClick = useCallback((article: Article) => {
-    setSelectedArticle(article);
-    setIsModalOpen(true);
-  }, []);
+//   const handleArticleClick = useCallback((article: Article) => {
+//     setSelectedArticle(article);
+//     setIsModalOpen(true);
+//   }, []);
+    const handleArticleClick = useCallback(async (article: Article) => {
+      try {
+        // Fetch full article from API
+        const fullArticle = await apiService.getArticleById(article.id);
+        if (fullArticle) {
+          setSelectedArticle(fullArticle);
+          setIsModalOpen(true);
+        }
+      } catch (error) {
+        console.error('Failed to fetch article:', error);
+      }
+    }, []);
 
   // Close modal
   const handleCloseModal = useCallback(() => {
@@ -113,9 +126,7 @@ const AppContent: React.FC = () => {
 
           {/* Results */}
           <div className={styles.results}>
-            <div className={styles.watermark} aria-hidden="true">
-                <img src="/logo.png" alt="" />
-            </div>
+
             {/* Loading state */}
             {(isLoading || isSearching) && <LoadingResults count={3} />}
 

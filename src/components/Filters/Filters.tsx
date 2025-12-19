@@ -73,7 +73,7 @@ export const Filters: React.FC<FiltersProps> = memo(({
             <option value="">All Categories</option>
             {categories.map((cat: Category) => (
               <option key={cat.id} value={cat.name}>
-                {cat.name} ({cat.count})
+                {cat.name} ({cat.articleCount || cat.count})
               </option>
             ))}
           </select>

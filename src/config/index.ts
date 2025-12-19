@@ -17,17 +17,17 @@ export const config = {
     storageKey: 'search-history', // localStorage key for persistence
   },
 
-  // API settings (for future real API integration)
-  api: {
-    baseUrl: process.env.REACT_APP_API_URL || '/api',
-    timeout: 10000,             // Request timeout in ms
-  },
-
   // UI settings
   ui: {
     animationDuration: 200,     // Default animation duration in ms
     toastDuration: 3000,        // Toast notification duration in ms
   },
+
+  // API
+  api: {
+      baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:3001/api/v1',
+      timeout: 10000,
+    },
 
   // Feature flags (for gradual rollout)
   features: {

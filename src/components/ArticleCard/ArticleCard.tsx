@@ -36,7 +36,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = memo(({
   searchQuery = '' 
 }) => {
   const relevanceLabel = getRelevanceLabel(article.relevanceScore);
-  const previewText = truncateText(article.content, 200);
+  //const previewText = truncateText(article.content, 200);
+  const previewText = article.snippet || truncateText(article.content, 200);
 
   return (
     <article 

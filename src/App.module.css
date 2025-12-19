@@ -92,22 +92,6 @@
   gap: var(--spacing-4);
 }
 
-.watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.06;
-}
-
-.watermark img {
-  width: 350px;
-  height: 350px;
-  object-fit: contain;
-}
-
 /* Pagination */
 .pagination {
   display: flex;
